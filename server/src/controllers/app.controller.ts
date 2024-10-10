@@ -38,8 +38,11 @@ import { InvitedUser } from 'src/decorators/invited-user.decorator';
 import { InvitedUserSessionDto } from '@dto/invited-user-session.dto';
 import { ActivateAccountWithTokenDto } from '@dto/activate-account-with-token.dto';
 import { OrganizationInviteAuthGuard } from 'src/modules/auth/organization-invite-auth.guard';
+import { AuditLogInterceptor } from 'src/interceptors/audit_log.interceptor';
+import { UseInterceptors } from '@nestjs/common';
 
 @Controller()
+@UseInterceptors(AuditLogInterceptor)
 export class AppController {
   constructor(
     private authService: AuthService,

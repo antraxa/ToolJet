@@ -28,8 +28,11 @@ import { DataSource } from 'src/entities/data_source.entity';
 import { DataSourceScopes, DataSourceTypes } from 'src/helpers/data_source.constants';
 import { App } from 'src/entities/app.entity';
 import { isEmpty } from 'class-validator';
+import { AuditLogInterceptor } from 'src/interceptors/audit_log.interceptor';
+import { UseInterceptors } from '@nestjs/common';
 
 @Controller('data_queries')
+@UseInterceptors(AuditLogInterceptor)
 export class DataQueriesController {
   constructor(
     private appsService: AppsService,
