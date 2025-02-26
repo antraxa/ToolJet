@@ -10,6 +10,7 @@ import {
   Query,
   UseGuards,
   BadRequestException,
+  UseInterceptors,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../src/modules/auth/jwt-auth.guard';
@@ -28,8 +29,10 @@ import {
 } from '@dto/data-source.dto';
 import { decode } from 'js-base64';
 import { User } from 'src/decorators/user.decorator';
+import { OwnAuditLogInterceptor } from 'src/interceptors/own_audit_log.interceptor';
 
 @Controller('data_sources')
+@UseInterceptors(OwnAuditLogInterceptor)
 export class DataSourcesController {
   constructor(
     private appsService: AppsService,

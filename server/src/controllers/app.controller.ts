@@ -4,6 +4,7 @@ import {
   Request,
   Post,
   UseGuards,
+  UseInterceptors,
   Body,
   Param,
   BadRequestException,
@@ -40,8 +41,10 @@ import { ActivateAccountWithTokenDto } from '@dto/activate-account-with-token.dt
 import { OrganizationInviteAuthGuard } from 'src/modules/auth/organization-invite-auth.guard';
 import { ResendInviteDto } from '@dto/resend-invite.dto';
 import { OrganizationUsersService } from '@services/organization_users.service';
+import { OwnAuditLogInterceptor } from 'src/interceptors/own_audit_log.interceptor';
 
 @Controller()
+@UseInterceptors(OwnAuditLogInterceptor)
 export class AppController {
   constructor(
     private authService: AuthService,

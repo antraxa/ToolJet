@@ -9,6 +9,7 @@ import {
   Put,
   Query,
   UseGuards,
+  UseInterceptors,
   BadRequestException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../src/modules/auth/jwt-auth.guard';
@@ -22,11 +23,13 @@ import { DataSource } from 'src/entities/data_source.entity';
 import { DataSourceScopes } from 'src/helpers/data_source.constants';
 import { getServiceAndRpcNames } from '../helpers/utils.helper';
 import { GLOBAL_DATA_SOURCE_RESOURCE_ACTIONS } from 'src/constants/global.constant';
+import { OwnAuditLogInterceptor } from 'src/interceptors/own_audit_log.interceptor';
 
 @Controller({
   path: 'data_sources',
   version: '2',
 })
+@UseInterceptors(OwnAuditLogInterceptor)
 export class GlobalDataSourcesController {
   constructor(
     private globalDataSourceAbilityFactory: GlobalDataSourceAbilityFactory,

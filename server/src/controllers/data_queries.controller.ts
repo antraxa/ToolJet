@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
+  UseInterceptors,
   ForbiddenException,
   BadRequestException,
   Put,
@@ -28,8 +29,10 @@ import { DataSource } from 'src/entities/data_source.entity';
 import { DataSourceScopes, DataSourceTypes } from 'src/helpers/data_source.constants';
 import { App } from 'src/entities/app.entity';
 import { isEmpty } from 'class-validator';
+import { OwnAuditLogInterceptor } from 'src/interceptors/own_audit_log.interceptor';
 
 @Controller('data_queries')
+@UseInterceptors(OwnAuditLogInterceptor)
 export class DataQueriesController {
   constructor(
     private appsService: AppsService,

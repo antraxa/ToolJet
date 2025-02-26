@@ -32,8 +32,10 @@ import { AppDecorator } from 'src/decorators/app.decorator';
 import { AppCloneDto } from '@dto/app-clone.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { APP_RESOURCE_ACTIONS } from 'src/constants/global.constant';
+import { OwnAuditLogInterceptor } from 'src/interceptors/own_audit_log.interceptor';
 
 @Controller('apps')
+@UseInterceptors(OwnAuditLogInterceptor)
 export class AppsController {
   constructor(
     private appsService: AppsService,
